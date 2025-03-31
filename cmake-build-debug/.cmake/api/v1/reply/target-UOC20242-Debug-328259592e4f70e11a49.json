@@ -1,0 +1,285 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "UOC20242"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_executable",
+			"include_directories"
+		],
+		"files" : 
+		[
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 16,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 13,
+				"parent" : 0
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g -std=gnu11 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.0.sdk -fcolor-diagnostics"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 2,
+					"path" : "/Users/pablord/Programacion/UOC/ProPra/2/PR1/UOC20242/UOCPlay/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/Users/pablord/Programacion/UOC/ProPra/2/PR1/UOC20242/UOCPlay/src"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/Users/pablord/Programacion/UOC/ProPra/2/PR1/UOC20242/cmake-build-debug/.cmake"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/Users/pablord/Programacion/UOC/ProPra/2/PR1/UOC20242/cmake-build-debug/.cmake/api"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/Users/pablord/Programacion/UOC/ProPra/2/PR1/UOC20242/cmake-build-debug/.cmake/api/v1"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/Users/pablord/Programacion/UOC/ProPra/2/PR1/UOC20242/cmake-build-debug/.cmake/api/v1/query"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/Users/pablord/Programacion/UOC/ProPra/2/PR1/UOC20242/cmake-build-debug/.cmake/api/v1/reply"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/Users/pablord/Programacion/UOC/ProPra/2/PR1/UOC20242/cmake-build-debug/CMakeFiles"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/Users/pablord/Programacion/UOC/ProPra/2/PR1/UOC20242/cmake-build-debug/CMakeFiles/20242_P1_DSLab.dir"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/Users/pablord/Programacion/UOC/ProPra/2/PR1/UOC20242/cmake-build-debug/CMakeFiles/20242_P1_DSLab.dir/UOCPlay"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/Users/pablord/Programacion/UOC/ProPra/2/PR1/UOC20242/cmake-build-debug/CMakeFiles/20242_P1_DSLab.dir/UOCPlay/src"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/Users/pablord/Programacion/UOC/ProPra/2/PR1/UOC20242/cmake-build-debug/CMakeFiles/20242_P1_DSLab.dir/src"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/Users/pablord/Programacion/UOC/ProPra/2/PR1/UOC20242/cmake-build-debug/CMakeFiles/3.29.6"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/Users/pablord/Programacion/UOC/ProPra/2/PR1/UOC20242/cmake-build-debug/CMakeFiles/3.29.6/CompilerIdC"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/Users/pablord/Programacion/UOC/ProPra/2/PR1/UOC20242/cmake-build-debug/CMakeFiles/3.29.6/CompilerIdC/tmp"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/Users/pablord/Programacion/UOC/ProPra/2/PR1/UOC20242/cmake-build-debug/CMakeFiles/UOC20242.dir"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/Users/pablord/Programacion/UOC/ProPra/2/PR1/UOC20242/cmake-build-debug/CMakeFiles/UOC20242.dir/UOCPlay"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/Users/pablord/Programacion/UOC/ProPra/2/PR1/UOC20242/cmake-build-debug/CMakeFiles/UOC20242.dir/UOCPlay/src"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/Users/pablord/Programacion/UOC/ProPra/2/PR1/UOC20242/cmake-build-debug/CMakeFiles/UOC20242.dir/src"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/Users/pablord/Programacion/UOC/ProPra/2/PR1/UOC20242/cmake-build-debug/CMakeFiles/UOC20242.dir/test"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/Users/pablord/Programacion/UOC/ProPra/2/PR1/UOC20242/cmake-build-debug/CMakeFiles/UOC20242.dir/test/src"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/Users/pablord/Programacion/UOC/ProPra/2/PR1/UOC20242/cmake-build-debug/CMakeFiles/pkgRedirects"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/Users/pablord/Programacion/UOC/ProPra/2/PR1/UOC20242/cmake-build-debug/Testing"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/Users/pablord/Programacion/UOC/ProPra/2/PR1/UOC20242/cmake-build-debug/Testing/Temporary"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/Users/pablord/Programacion/UOC/ProPra/2/PR1/UOC20242/test/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/Users/pablord/Programacion/UOC/ProPra/2/PR1/UOC20242/test/src"
+				}
+			],
+			"language" : "C",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					1
+				],
+				"standard" : "11"
+			},
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9
+			]
+		}
+	],
+	"id" : "UOC20242::@6890427a1f51a3e7e1df",
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "-g",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "",
+				"role" : "flags"
+			}
+		],
+		"language" : "C"
+	},
+	"name" : "UOC20242",
+	"nameOnDisk" : "UOC20242",
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/main.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "UOCPlay/src/api.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "UOCPlay/src/csv.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "UOCPlay/src/date.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "UOCPlay/src/film.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "UOCPlay/src/person.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "UOCPlay/src/subscription.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "test/src/test.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "test/src/test_pr1.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "test/src/test_suite.c",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "EXECUTABLE"
+}
