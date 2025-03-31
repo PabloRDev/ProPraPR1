@@ -345,14 +345,17 @@ tApiError freeFilmsList_free(tFreeFilmList* list) {
 	return E_SUCCESS;
 }
 
-// Initialize the films catalog
+// 2a - Initialize the films catalog
 tApiError catalog_init(tCatalog* catalog) {
-	/////////////////////////////////
-	// PR1_2a
-	/////////////////////////////////
-	
-	/////////////////////////////////
-    return E_NOT_IMPLEMENTED;
+	catalog->filmList.count = 0;
+	catalog->filmList.first = NULL;
+	catalog->filmList.last = NULL;
+
+	catalog->freeFilmList.count = 0;
+	catalog->freeFilmList.first = NULL;
+	catalog->freeFilmList.last = NULL;
+
+    return E_SUCCESS;
 }
 
 // Add a new film to the catalog

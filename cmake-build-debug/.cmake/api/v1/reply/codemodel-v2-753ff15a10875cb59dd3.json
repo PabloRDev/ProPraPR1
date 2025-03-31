@@ -15,7 +15,8 @@
 					"source" : ".",
 					"targetIndexes" : 
 					[
-						0
+						0,
+						1
 					]
 				}
 			],
@@ -30,7 +31,8 @@
 					"name" : "UOC20242",
 					"targetIndexes" : 
 					[
-						0
+						0,
+						1
 					]
 				}
 			],
@@ -39,8 +41,15 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "UOC20242::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-UOC20242-Debug-328259592e4f70e11a49.json",
+					"jsonFile" : "target-UOC20242-Debug-9ddf0af1ebe1afbfb5e3.json",
 					"name" : "UOC20242",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "UOCPlay::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-UOCPlay-Debug-bc71bae0600a09894290.json",
+					"name" : "UOCPlay",
 					"projectIndex" : 0
 				}
 			]

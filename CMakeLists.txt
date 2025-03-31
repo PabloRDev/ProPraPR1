@@ -1,26 +1,33 @@
-cmake_minimum_required(VERSION 3.29)  # You can change this based on your setup
+cmake_minimum_required(VERSION 3.29)
 project(UOC20242 C)
 
 set(CMAKE_C_STANDARD 11)
 
-# Buscar todas las carpetas 'include' de forma recursiva
-file(GLOB_RECURSE INCLUDE_DIRS LIST_DIRECTORIES true "${CMAKE_SOURCE_DIR}/**/include")
+# Headers
+include_directories(UOCPlay/include test/include)
 
-# Asegurarse de que tenemos algo en la lista
-message(STATUS "Include directories found: ${INCLUDE_DIRS}")
-
-# Añadir las carpetas encontradas como directorios de inclusión
-include_directories(${INCLUDE_DIRS})
-
-# Asegúrate de que los archivos fuente están correctamente listados
-add_executable(UOC20242
-        src/main.c
+# UOCPlay -> library
+add_library(UOCPlay STATIC
         UOCPlay/src/api.c
         UOCPlay/src/csv.c
         UOCPlay/src/date.c
         UOCPlay/src/film.c
         UOCPlay/src/person.c
         UOCPlay/src/subscription.c
+)
+
+# Library output dir
+set_target_properties(UOCPlay PROPERTIES
+        ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib
+        ARCHIVE_OUTPUT_NAME "UOCPlay"
+        DEBUG_POSTFIX "d"  # Add "d" in Debug mode
+)
+
+add_executable(UOC20242
+        src/main.c
         test/src/test.c
         test/src/test_pr1.c
-        test/src/test_suite.c)
+        test/src/test_suite.c
+)
+
+target_link_libraries(UOC20242 UOCPlay)
