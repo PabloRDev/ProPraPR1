@@ -497,12 +497,32 @@ int catalog_freeLen(tCatalog catalog) {
     return catalog.freeFilmList.count;
 }
 
-// Remove the films from the catalog
+// 2e - Remove the films from the catalog
 tApiError catalog_free(tCatalog *catalog) {
-    /////////////////////////////////
-    // PR1_2e
-    /////////////////////////////////
+    assert(catalog != NULL);
 
-    /////////////////////////////////
-    return E_NOT_IMPLEMENTED;
+    tFilmListNode *temp = catalog->filmList.first;
+    while (temp != NULL) {
+        tFilmListNode *next = temp->next;
+        free(temp->elem.name);
+        free(temp);
+        temp = next;
+    }
+
+    catalog->filmList.first = NULL;
+    catalog->filmList.last = NULL;
+    catalog->filmList.count = 0;
+
+    tFreeFilmListNode *tempFree = catalog->freeFilmList.first;
+    while (tempFree != NULL) {
+        tFreeFilmListNode *next = tempFree->next;
+        free(tempFree);
+        tempFree = next;
+    }
+
+    catalog->freeFilmList.first = NULL;
+    catalog->freeFilmList.last = NULL;
+    catalog->freeFilmList.count = 0;
+
+    return E_SUCCESS;
 }
