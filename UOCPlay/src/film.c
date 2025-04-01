@@ -422,6 +422,8 @@ tApiError catalog_del(tCatalog *catalog, const char *name) {
 
     tFilmListNode *tempFirst = catalog->filmList.first;
     tFilmListNode *tempLast = catalog->filmList.last;
+    tFilmListNode *prev = NULL;
+    tFilmListNode *current = tempFirst;
     const tFilm *existingFilm = filmList_find(catalog->filmList, name);
 
     if (existingFilm == NULL) {
@@ -434,7 +436,7 @@ tApiError catalog_del(tCatalog *catalog, const char *name) {
 
         return E_SUCCESS;
     }
-    // FREE
+    // FREE FILM
     if (existingFilm->isFree) {
         freeFilmList_del(&catalog->freeFilmList, name);
     }
@@ -449,8 +451,7 @@ tApiError catalog_del(tCatalog *catalog, const char *name) {
 
         return E_SUCCESS;
     }
-    // MULTIPLE NODES
-    // FIRST
+    // FIRST NODE
     if (strcmp(existingFilm->name, tempFirst->elem.name) == 0) {
         // (FIRST) [FIRST.NEXT] -> ...
         catalog->filmList.first = catalog->filmList.first->next;
@@ -461,43 +462,29 @@ tApiError catalog_del(tCatalog *catalog, const char *name) {
 
         return E_SUCCESS;
     }
-    // LAST
-    if (strcmp(existingFilm->name, tempLast->elem.name) == 0) {
-        // ... -> [PREV LAST] (-> LAST) -> NULL
-        tFilmListNode *prevLast = catalog->filmList.first;
-
-        while (prevLast->next != tempLast) {
-            // FINDING PREV TO LAST
-            prevLast = prevLast->next;
-        }
-        prevLast->next = NULL;
-        catalog->filmList.last = prevLast;
-
-        free(tempLast->elem.name);
-        free(tempLast);
-        catalog->filmList.count--;
-
-        return E_SUCCESS;
-    }
-    // MIDDLE
-    tFilmListNode *current = catalog->filmList.first;
-    while (current != NULL && current->next != NULL) {
-        if (strcmp(existingFilm->name, current->next->elem.name) == 0) {
-            // FIRST -> ... (-> CURRENT) -> [CURRENT.NEXT] -> ... -> LAST
-            tFilmListNode *toDelete = current->next;
-            current->next = toDelete->next;
-
-            free(toDelete->elem.name);
-            free(toDelete);
-            catalog->filmList.count--;
-
-            return E_SUCCESS;
-        }
-
+    // LAST OR OTHER
+    while (current != NULL && strcmp(current->elem.name, name) != 0) {
+        // FIRST -> ... (-> PREV -> CURRENT) -> [CURRENT.NEXT] -> ... -> LAST
+        prev = current;
         current = current->next;
     }
-    // IF IT REACHES HERE, NOT FOUND
-    return E_FILM_NOT_FOUND;
+
+    if (current == NULL) {
+        return E_FILM_NOT_FOUND;
+    }
+
+    if (current == tempLast) {
+        catalog->filmList.last = prev;
+        prev->next = NULL;
+    } else {
+        prev->next = current->next;
+    }
+
+    free(current->elem.name);
+    free(current);
+    catalog->filmList.count--;
+
+    return E_SUCCESS;
 }
 
 // 2d.1 - Return the number of total films
