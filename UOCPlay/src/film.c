@@ -417,10 +417,8 @@ tApiError catalog_add(tCatalog *catalog, tFilm film) {
 
 // 2c - Remove a film from the catalog
 tApiError catalog_del(tCatalog *catalog, const char *name) {
-    if (catalog == NULL) {
-        // CATALOG FAIL
-        return E_FILM_NOT_FOUND;
-    }
+    assert(catalog != NULL);
+    assert(name != NULL);
 
     tFilmListNode *tempFirst = catalog->filmList.first;
     tFilmListNode *tempLast = catalog->filmList.last;
@@ -456,11 +454,6 @@ tApiError catalog_del(tCatalog *catalog, const char *name) {
     if (strcmp(existingFilm->name, tempFirst->elem.name) == 0) {
         // (FIRST) [FIRST.NEXT] -> ...
         catalog->filmList.first = catalog->filmList.first->next;
-
-        if (catalog->filmList.first == NULL) {
-            // NOW IS EMPTY
-            catalog->filmList.last = NULL;
-        }
 
         free(tempFirst->elem.name);
         free(tempFirst);
@@ -507,7 +500,7 @@ tApiError catalog_del(tCatalog *catalog, const char *name) {
     return E_FILM_NOT_FOUND;
 }
 
-// Return the number of total films
+// 2d.1 - Return the number of total films
 int catalog_len(tCatalog catalog) {
     /////////////////////////////////
     // PR1_2d
@@ -517,7 +510,7 @@ int catalog_len(tCatalog catalog) {
     return -1;
 }
 
-// Return the number of free films
+// 2d.2 Return the number of free films
 int catalog_freeLen(tCatalog catalog) {
     /////////////////////////////////
     // PR1_2d
