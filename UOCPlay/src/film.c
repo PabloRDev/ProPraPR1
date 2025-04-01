@@ -489,22 +489,12 @@ tApiError catalog_del(tCatalog *catalog, const char *name) {
 
 // 2d.1 - Return the number of total films
 int catalog_len(tCatalog catalog) {
-    /////////////////////////////////
-    // PR1_2d
-    /////////////////////////////////
-
-    /////////////////////////////////
-    return -1;
+    return catalog.filmList.count;
 }
 
 // 2d.2 Return the number of free films
 int catalog_freeLen(tCatalog catalog) {
-    /////////////////////////////////
-    // PR1_2d
-    /////////////////////////////////
-
-    /////////////////////////////////
-    return -1;
+    return catalog.freeFilmList.count;
 }
 
 // Remove the films from the catalog
