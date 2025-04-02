@@ -116,14 +116,45 @@ tApiError api_addPerson(tApiData *data, tCSVEntry entry) {
     return E_SUCCESS;
 }
 
-// Add a subscription if it does not exist
+// 3d - Add a subscription if it does not exist
 tApiError api_addSubscription(tApiData *data, tCSVEntry entry) {
-    /////////////////////////////////
-    // PR1_3d
-    /////////////////////////////////
+    assert(data != NULL);
+    tSubscription newSubs;
 
-    /////////////////////////////////
-    return E_NOT_IMPLEMENTED;
+    if (strcmp(entry.type, "SUBSCRIPTION") != 0) {
+        return E_INVALID_ENTRY_TYPE;
+    }
+    if (csv_numFields(entry) != NUM_FIELDS_SUBSCRIPTION) {
+        return E_INVALID_ENTRY_FORMAT;
+    }
+
+    subscription_parse(&newSubs, entry);
+    if (subscriptions_find(data->subscriptions, newSubs.id) >= 0) {
+        return E_SUBSCRIPTION_DUPLICATED;
+    }
+
+    if (data->subscriptions.count == 0) {
+        // FIRST SUBSCRIPTION
+        data->subscriptions.elems = (tSubscription *) malloc(sizeof(tSubscription));
+
+        if (data->subscriptions.elems == NULL) {
+            return E_MEMORY_ERROR;
+        }
+    } else {
+        tSubscription *temp = realloc(data->subscriptions.elems,
+                                      (data->subscriptions.count + 1) * sizeof(tSubscription));
+
+        if (temp == NULL) {
+            return E_MEMORY_ERROR;
+        }
+
+        data->subscriptions.elems = temp;
+    }
+
+    data->subscriptions.elems[data->subscriptions.count] = newSubs;
+    data->subscriptions.count++;
+
+    return E_SUCCESS;
 }
 
 // Add a film if it does not exist
