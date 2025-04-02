@@ -132,6 +132,9 @@ tApiError api_addSubscription(tApiData *data, tCSVEntry entry) {
     if (subscriptions_find(data->subscriptions, newSubs.id) >= 0) {
         return E_SUBSCRIPTION_DUPLICATED;
     }
+    if (people_find(data->people, newSubs.document) < 0) {
+        return E_PERSON_NOT_FOUND;
+    }
 
     if (data->subscriptions.count == 0) {
         // FIRST SUBSCRIPTION
@@ -157,14 +160,36 @@ tApiError api_addSubscription(tApiData *data, tCSVEntry entry) {
     return E_SUCCESS;
 }
 
-// Add a film if it does not exist
+// 3e - Add a film if it does not exist
 tApiError api_addFilm(tApiData *data, tCSVEntry entry) {
-    /////////////////////////////////
-    // PR1_3e
-    /////////////////////////////////
+    assert(data != NULL);
+    tFilm newFilm;
 
-    /////////////////////////////////
-    return E_NOT_IMPLEMENTED;
+    if (strcmp(entry.type, "FILM") != 0) {
+        return E_INVALID_ENTRY_TYPE;
+    }
+    if (csv_numFields(entry) != NUM_FIELDS_FILM) {
+        return E_INVALID_ENTRY_FORMAT;
+    }
+
+    film_parse(&newFilm, entry);
+
+    if (filmList_find(data->catalog.filmList, newFilm.name) != NULL) {
+        return E_FILM_DUPLICATED;
+    }
+
+    tFilm *filmNode = (tFilm *)malloc(sizeof(tFilm));
+    if (filmNode == NULL) {
+        return E_MEMORY_ERROR;
+    }
+    *filmNode = newFilm;
+
+    filmList_add(&data->catalog.filmList, *filmNode);
+    if (newFilm.isFree) {
+        freeFilmList_add(&data->catalog.freeFilmList, filmNode);
+    }
+
+    return E_SUCCESS;
 }
 
 // Get the number of people registered on the application
