@@ -9,32 +9,30 @@
 
 #define FILE_READ_BUFFER_SIZE 2048
 
-// Type that stores all the application data
+// 3a - Type that stores all the application data
 typedef struct _ApiData {
-    /////////////////////////////////
-	// PR1_3a
-	/////////////////////////////////
-    
-    /////////////////////////////////
+    tPeople people;
+    tSubscriptions subscriptions;
+    tCatalog catalog;
 } tApiData;
 
 // Get the API version information
-const char* api_version();
+const char *api_version();
 
 // Load data from a CSV file. If reset is true, remove previous data
-tApiError api_loadData(tApiData* data, const char* filename, bool reset);
+tApiError api_loadData(tApiData *data, const char *filename, bool reset);
 
 // Initialize the data structure
-tApiError api_initData(tApiData* data);
+tApiError api_initData(tApiData *data);
 
 // Add a person into the data if it does not exist
-tApiError api_addPerson(tApiData* data, tCSVEntry entry);
+tApiError api_addPerson(tApiData *data, tCSVEntry entry);
 
 // Add a subscription if it does not exist
-tApiError api_addSubscription(tApiData* data, tCSVEntry entry);
+tApiError api_addSubscription(tApiData *data, tCSVEntry entry);
 
 // Add a film if it does not exist
-tApiError api_addFilm(tApiData* data, tCSVEntry entry);
+tApiError api_addFilm(tApiData *data, tCSVEntry entry);
 
 // Get the number of people registered on the application
 int api_peopleCount(tApiData data);
@@ -49,16 +47,16 @@ int api_filmsCount(tApiData data);
 int api_freeFilmsCount(tApiData data);
 
 // Free all used memory
-tApiError api_freeData(tApiData* data);
+tApiError api_freeData(tApiData *data);
 
 // Add a new entry
-tApiError api_addDataEntry(tApiData* data, tCSVEntry entry);
+tApiError api_addDataEntry(tApiData *data, tCSVEntry entry);
 
 // Get subscription data
 tApiError api_getSubscription(tApiData data, int id, tCSVEntry *entry);
 
 // Get film data
-tApiError api_getFilm(tApiData data, const char* name, tCSVEntry *entry);
+tApiError api_getFilm(tApiData data, const char *name, tCSVEntry *entry);
 
 // Get free films data
 tApiError api_getFreeFilms(tApiData data, tCSVData *freeFilms);

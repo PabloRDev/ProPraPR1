@@ -66,14 +66,13 @@ tApiError api_loadData(tApiData* data, const char* filename, bool reset)
     return E_SUCCESS;
 }
 
-// Initialize the data structure
+// 3b - Initialize the data structure
 tApiError api_initData(tApiData* data) {
-	/////////////////////////////////
-	// PR1_3b
-	/////////////////////////////////
-	
-    /////////////////////////////////
-    return E_NOT_IMPLEMENTED;
+	people_init(&data->people);
+	subscriptions_init(&data->subscriptions);
+	catalog_init(&data->catalog);
+
+    return E_SUCCESS;
 }
 
 // Add a person into the data if it does not exist
