@@ -64,4 +64,7 @@ tApiError api_getFreeFilms(tApiData data, tCSVData *freeFilms);
 // Get films data by genre
 tApiError api_getFilmsByGenre(tApiData data, tCSVData *films, int genre);
 
+// Format the date into dd/mm/yyyy and store it in buffer
+void date_format(tDate date, char *buffer);
+
 #endif // __UOCPLAY_API__H

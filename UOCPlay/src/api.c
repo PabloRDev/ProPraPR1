@@ -256,17 +256,52 @@ tApiError api_addDataEntry(tApiData *data, tCSVEntry entry) {
     return E_SUCCESS;
 }
 
-// Get subscription data
-tApiError api_getSubscription(tApiData data, int id, tCSVEntry *entry) {
-    /////////////////////////////////
-    // PR1_4a
-    /////////////////////////////////
+// 4a - Get subscription data
+tApiError api_getSubscription(tApiData data, const int id, tCSVEntry *entry) {
+    assert(data.subscriptions.elems != NULL);
+    assert(entry != NULL);
+    csv_initEntry(entry); // EMPTY ENTRY
+    char buffer[FILE_READ_BUFFER_SIZE];
 
-    /////////////////////////////////
-    return E_NOT_IMPLEMENTED;
+    const int found = subscriptions_find(data.subscriptions, id);
+    if (found < 0) {
+        return E_SUBSCRIPTION_NOT_FOUND;
+    };
+    tSubscription subsFound = data.subscriptions.elems[found];
+
+    // FORMAT ENTRY
+    entry->type = (char *) malloc(strlen("SUBSCRIPTION") + 1);
+    strcpy(entry->type, "SUBSCRIPTION");
+    entry->numFields = NUM_FIELDS_SUBSCRIPTION;
+    entry->fields = (char **) malloc(sizeof(char *) * entry->numFields);
+    // ID
+    snprintf(buffer, sizeof(buffer), "%d", subsFound.id);
+    entry->fields[0] = strdup(buffer);
+    // DOCUMENT
+    entry->fields[1] = strdup(subsFound.document);
+    // START DATE
+    date_format(subsFound.start_date, buffer);
+    entry->fields[2] = strdup(buffer);
+    // END DATE
+    date_format(subsFound.end_date, buffer);
+    entry->fields[3] = strdup(buffer);
+    // PLAN
+    entry->fields[4] = strdup(subsFound.plan);
+    // PRICE
+    if (subsFound.price == (int) subsFound.price) {
+        snprintf(buffer, sizeof(buffer), "%d", (int)subsFound.price);
+    } else {
+        snprintf(buffer, sizeof(buffer), "%.2f", subsFound.price);
+    }
+    entry->fields[5] = strdup(buffer);
+    // NUM DEVICES
+    snprintf(buffer, sizeof(buffer), "%d", subsFound.numDevices);
+    entry->fields[6] = strdup(buffer);
+
+    return E_SUCCESS;
 }
 
-// Get film data
+// 4b - Get film data
 tApiError api_getFilm(tApiData data, const char *name, tCSVEntry *entry) {
     /////////////////////////////////
     // PR1_4b
@@ -294,4 +329,9 @@ tApiError api_getFilmsByGenre(tApiData data, tCSVData *films, int genre) {
 
     /////////////////////////////////
     return E_NOT_IMPLEMENTED;
+}
+
+void date_format(const tDate date, char* buffer) {
+    // dd/mm/yyyy -> BUFFER
+    snprintf(buffer, 11, "%02d/%02d/%04d", date.day, date.month, date.year);
 }
