@@ -178,7 +178,7 @@ tApiError api_addFilm(tApiData *data, tCSVEntry entry) {
         return E_FILM_DUPLICATED;
     }
 
-    tFilm *filmNode = (tFilm *)malloc(sizeof(tFilm));
+    tFilm *filmNode = (tFilm *) malloc(sizeof(tFilm));
     if (filmNode == NULL) {
         return E_MEMORY_ERROR;
     }
@@ -226,14 +226,34 @@ tApiError api_freeData(tApiData *data) {
     return E_SUCCESS;
 }
 
-// Add a new entry
+// 3h - Add a new entry
 tApiError api_addDataEntry(tApiData *data, tCSVEntry entry) {
-    /////////////////////////////////
-    // PR1_3h
-    /////////////////////////////////
+    assert(data != NULL);
+    assert(
+        (strcmp(entry.type, "PERSON") == 0) ||
+        (strcmp(entry.type, "SUBSCRIPTION") == 0) ||
+        (strcmp(entry.type, "FILM") == 0));
+    // PARSE + ADD
+    if (strcmp(entry.type, "PERSON") == 0) {
+        tPerson newPerson;
 
-    /////////////////////////////////
-    return E_NOT_IMPLEMENTED;
+        person_parse(&newPerson, entry);
+        people_add(&data->people, newPerson);
+    }
+    if (strcmp(entry.type, "FILM") == 0) {
+        tFilm newFilm;
+
+        film_parse(&newFilm, entry);
+        catalog_add(&data->catalog, newFilm);
+    }
+    if (strcmp(entry.type, "SUBSCRIPTION") == 0) {
+        tSubscription newSubs;
+
+        subscription_parse(&newSubs, entry);
+        subscriptions_add(&data->subscriptions, data->people, newSubs);
+    }
+
+    return E_SUCCESS;
 }
 
 // Get subscription data
