@@ -192,54 +192,38 @@ tApiError api_addFilm(tApiData *data, tCSVEntry entry) {
     return E_SUCCESS;
 }
 
-// Get the number of people registered on the application
+// 3f.1 - Get the number of people registered on the application
 int api_peopleCount(tApiData data) {
-    /////////////////////////////////
-    // PR1_3f
-    /////////////////////////////////
-
-    /////////////////////////////////
-    return -1;
+    return data.people.count;
 }
 
-// Get the number of subscriptions registered on the application
+// 3f.2 - Get the number of subscriptions registered on the application
 int api_subscriptionsCount(tApiData data) {
-    /////////////////////////////////
-    // PR1_3f
-    /////////////////////////////////
-
-    /////////////////////////////////
-    return -1;
+    return data.subscriptions.count;
 }
 
-// Get the number of films registered on the application
+// 3f.3 - Get the number of films registered on the application
 int api_filmsCount(tApiData data) {
-    /////////////////////////////////
-    // PR1_3f
-    /////////////////////////////////
-
-    /////////////////////////////////
-    return -1;
+    return data.catalog.filmList.count;
 }
 
-// Get the number of free films registered on the application
+// 3f.4 - Get the number of free films registered on the application
 int api_freeFilmsCount(tApiData data) {
-    /////////////////////////////////
-    // PR1_3f
-    /////////////////////////////////
-
-    /////////////////////////////////
-    return -1;
+    return data.catalog.freeFilmList.count;
 }
 
-// Free all used memory
+// 3g - Free all used memory
 tApiError api_freeData(tApiData *data) {
-    /////////////////////////////////
-    // PR1_3g
-    /////////////////////////////////
+    assert(data != NULL);
+    if (data == NULL) {
+        return E_SUCCESS;
+    }
 
-    /////////////////////////////////
-    return E_NOT_IMPLEMENTED;
+    people_free(&data->people);
+    catalog_free(&data->catalog);
+    subscriptions_free(&data->subscriptions);
+
+    return E_SUCCESS;
 }
 
 // Add a new entry
