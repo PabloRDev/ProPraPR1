@@ -303,35 +303,155 @@ tApiError api_getSubscription(tApiData data, const int id, tCSVEntry *entry) {
 
 // 4b - Get film data
 tApiError api_getFilm(tApiData data, const char *name, tCSVEntry *entry) {
-    /////////////////////////////////
-    // PR1_4b
-    /////////////////////////////////
+    assert(entry != NULL);
+    csv_initEntry(entry); // EMPTY ENTRY
+    char buffer[FILE_READ_BUFFER_SIZE];
 
-    /////////////////////////////////
-    return E_NOT_IMPLEMENTED;
+    // SEARCH IN LINKED TREE
+    tFilmListNode *node = data.catalog.filmList.first;
+    while (node != NULL && strcmp(node->elem.name, name) != 0) {
+        node = node->next;
+    }
+    if (node == NULL) {
+        return E_FILM_NOT_FOUND;
+    }
+    tFilm film = node->elem;
+
+    // FORMAT ENTRY
+    entry->type = (char *) malloc(strlen("FILM") + 1);
+    strcpy(entry->type, "FILM");
+    entry->numFields = NUM_FIELDS_FILM;
+    entry->fields = (char **) malloc(sizeof(char *) * entry->numFields);
+
+    // NAME
+    entry->fields[0] = strdup(film.name);
+    // DURATION
+    snprintf(buffer, sizeof(buffer), "%02d:%02d", film.duration.hour, film.duration.minutes);
+    entry->fields[1] = strdup(buffer);
+    // GENRE
+    snprintf(buffer, sizeof(buffer), "%d", film.genre);
+    entry->fields[2] = strdup(buffer);
+    // RELEASE DATE
+    date_format(film.release, buffer);
+    entry->fields[3] = strdup(buffer);
+    // RATING
+    snprintf(buffer, sizeof(buffer), "%.1f", film.rating);
+    entry->fields[4] = strdup(buffer);
+    // IS FREE
+    snprintf(buffer, sizeof(buffer), "%d", film.isFree);
+    entry->fields[5] = strdup(buffer);
+
+    return E_SUCCESS;
 }
 
-// Get free films data
+// 4c - Get free films data
 tApiError api_getFreeFilms(tApiData data, tCSVData *freeFilms) {
-    /////////////////////////////////
-    // PR1_4c
-    /////////////////////////////////
+    assert(freeFilms != NULL);
+    csv_init(freeFilms); // EMPTY CSV DATA
 
-    /////////////////////////////////
-    return E_NOT_IMPLEMENTED;
+    char buffer[FILE_READ_BUFFER_SIZE];
+    tFilmListNode *node = data.catalog.filmList.first;
+
+    while (node != NULL) {
+        tFilm film = node->elem;
+
+        if (film.isFree) {
+            tCSVEntry entry;
+            csv_initEntry(&entry); // EMPTY ENTRY
+
+            // FORMAT ENTRY
+            entry.type = (char *) malloc(strlen("FILM") + 1);
+            strcpy(entry.type, "FILM");
+            entry.numFields = NUM_FIELDS_FILM;
+            entry.fields = (char **) malloc(sizeof(char *) * entry.numFields);
+
+            // NAME
+            entry.fields[0] = strdup(film.name);
+            // DURATION
+            snprintf(buffer, sizeof(buffer), "%02d:%02d", film.duration.hour, film.duration.minutes);
+            entry.fields[1] = strdup(buffer);
+            // GENRE
+            snprintf(buffer, sizeof(buffer), "%d", film.genre);
+            entry.fields[2] = strdup(buffer);
+            // RELEASE DATE
+            date_format(film.release, buffer);
+            entry.fields[3] = strdup(buffer);
+            // RATING
+            snprintf(buffer, sizeof(buffer), "%.1f", film.rating);
+            entry.fields[4] = strdup(buffer);
+            // IS FREE
+            snprintf(buffer, sizeof(buffer), "%d", film.isFree);
+            entry.fields[5] = strdup(buffer);
+
+            // ENTRY FIELDS TO STRING
+            snprintf(buffer, sizeof(buffer), "%s;%s;%s;%s;%s;%s",
+                     entry.fields[0], entry.fields[1], entry.fields[2],
+                     entry.fields[3], entry.fields[4], entry.fields[5]);
+            // ADD TO CSV DATA
+            csv_addStrEntry(freeFilms, buffer, entry.type);
+        }
+
+        node = node->next;
+    }
+
+    return E_SUCCESS;
 }
 
-// Get films data by genre
+
+// 4d - Get films data by genre
 tApiError api_getFilmsByGenre(tApiData data, tCSVData *films, int genre) {
-    /////////////////////////////////
-    // PR1_4d
-    /////////////////////////////////
+    assert(films != NULL);
+    csv_init(films); // EMPTY CSV DATA
 
-    /////////////////////////////////
-    return E_NOT_IMPLEMENTED;
+    char buffer[FILE_READ_BUFFER_SIZE];
+    tFilmListNode *node = data.catalog.filmList.first;
+
+    while (node != NULL) {
+        tFilm film = node->elem;
+
+        if (film.genre == genre) {
+            tCSVEntry entry;
+            csv_initEntry(&entry); // Init the entry
+
+            // FORMAT ENTRY
+            entry.type = (char *) malloc(strlen("FILM") + 1);
+            strcpy(entry.type, "FILM");
+            entry.numFields = NUM_FIELDS_FILM;
+            entry.fields = (char **) malloc(sizeof(char *) * entry.numFields);
+
+            // NAME
+            entry.fields[0] = strdup(film.name);
+            // DURATION
+            snprintf(buffer, sizeof(buffer), "%02d:%02d", film.duration.hour, film.duration.minutes);
+            entry.fields[1] = strdup(buffer);
+            // GENRE
+            snprintf(buffer, sizeof(buffer), "%d", film.genre);
+            entry.fields[2] = strdup(buffer);
+            // RELEASE DATE
+            date_format(film.release, buffer);
+            entry.fields[3] = strdup(buffer);
+            // RATING
+            snprintf(buffer, sizeof(buffer), "%.1f", film.rating);
+            entry.fields[4] = strdup(buffer);
+            // IS FREE
+            snprintf(buffer, sizeof(buffer), "%d", film.isFree);
+            entry.fields[5] = strdup(buffer);
+
+            // ENTRY FIELDS TO STRING
+            snprintf(buffer, sizeof(buffer), "%s;%s;%s;%s;%s;%s",
+                     entry.fields[0], entry.fields[1], entry.fields[2],
+                     entry.fields[3], entry.fields[4], entry.fields[5]);
+            // ADD TO CSV DATA
+            csv_addStrEntry(films, buffer, entry.type);
+        }
+
+        node = node->next;
+    }
+
+    return E_SUCCESS;
 }
 
-void date_format(const tDate date, char* buffer) {
+void date_format(const tDate date, char *buffer) {
     // dd/mm/yyyy -> BUFFER
     snprintf(buffer, 11, "%02d/%02d/%04d", date.day, date.month, date.year);
 }
